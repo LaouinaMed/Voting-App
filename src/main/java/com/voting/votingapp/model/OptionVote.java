@@ -11,12 +11,17 @@ public class OptionVote {
     public OptionVote() {
     }
 
-    public String getOption() {
+    public OptionVote(String voteOption, Long voteCount) {
+        this.voteOption = voteOption;
+        this.voteCount = voteCount;
+    }
+
+    public String getVoteOption() {
         return voteOption;
     }
 
-    public void setOption(String option) {
-        this.voteOption = option;
+    public void setVoteOption(String voteOption) {
+        this.voteOption = voteOption;
     }
 
     public Long getVoteCount() {
