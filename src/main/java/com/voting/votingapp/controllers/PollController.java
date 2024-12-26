@@ -1,11 +1,13 @@
 package com.voting.votingapp.controllers;
 
 import com.voting.votingapp.model.Poll;
+import com.voting.votingapp.request.Vote;
 import com.voting.votingapp.services.PollService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/polls")
@@ -24,6 +26,7 @@ public class PollController {
 
     @GetMapping
     public List<Poll> getAllPolls(){
+
         return pollService.getAllPolls();
     }
 
@@ -31,7 +34,12 @@ public class PollController {
     public ResponseEntity<Poll> getPoll(@PathVariable Long id){
         return  pollService.getPollById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.noContent().build());
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/vote")
+    public void vote(@RequestBody Vote vote){
+         pollService.vote(vote.getPollId(), vote.getOptionIndex());
     }
 
 }
